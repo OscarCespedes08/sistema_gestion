@@ -86,11 +86,16 @@ const SaleList = () => {
                     <Button variant="info" size="sm" className="me-2">Ver Detalles</Button>
                   </Link>
                   <a 
-                    href={`${window.location.origin}/api/sales/${sale._id}/invoice`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                    //href={`http://localhost:5000/api/sales/${sale._id}/invoice`} 
+                    //target="_blank" 
+                    //rel="noopener noreferrer"
                   >
-                    <Button variant="secondary" size="sm">Factura</Button>
+                    <Button   variant="secondary"
+  size="sm"
+  onClick={() => {
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+    window.open(`${baseUrl}/api/sales/${sale._id}/invoice`, '_blank');
+  }}>Factura</Button>
                   </a>
                 </td>
               </tr>
