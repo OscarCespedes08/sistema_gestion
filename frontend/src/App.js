@@ -41,7 +41,7 @@ function App() {
   );
 }
 
-export default App;
+
 
 <Routes>
   <Route path="/" element={<HomeScreen />} />
@@ -55,3 +55,5 @@ export default App;
   <Route path="/sales/new" element={<SaleForm />} />
   <Route path="/sales/:id" element={<SaleForm />} />
 </Routes>
+
+export default App;
