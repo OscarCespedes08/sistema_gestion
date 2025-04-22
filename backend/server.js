@@ -31,10 +31,15 @@ app.use('/api/clients', require('./routes/clientRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/sales', require('./routes/saleRoutes'));
 
-// Servir archivos estáticos en producción
-if (process.env.NODE_ENV === 'production') {
+// Verificar si estamos en Render (Render establece esta variable automáticamente)
+const isRender = process.env.RENDER === 'true';
+
+// Servir archivos estáticos en producción o en Render
+if (process.env.NODE_ENV === 'production' || isRender) {
+  // Servir archivos estáticos desde la carpeta build
   app.use(express.static(path.join(__dirname, '../frontend/build')));
   
+  // Cualquier ruta no reconocida, enviar el index.html
   app.get('*', (req, res) => 
     res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'))
   );
