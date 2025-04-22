@@ -3,7 +3,6 @@ const Sale = require('../models/saleModel');
 const Product = require('../models/productModel');
 const Client = require('../models/clientModel');
 const PDFDocument = require('pdfkit');
-const cloudinary = require('../config/cloudinary');
 const fs = require('fs');
 const path = require('path');
 
@@ -120,7 +119,8 @@ const createSale = asyncHandler(async (req, res) => {
 
 // Función para generar la factura en PDF
 const generateInvoice = async (sale) => {
-  const invoicesDir = path.join('/tmp', 'invoices');
+  // Crear directorio para facturas si no existe
+  const invoicesDir = path.join(__dirname, '../uploads/invoices');
   if (!fs.existsSync(invoicesDir)) {
     fs.mkdirSync(invoicesDir, { recursive: true });
   }
@@ -212,7 +212,7 @@ const generateInvoice = async (sale) => {
   // Esperar a que se complete la escritura del archivo
   return new Promise((resolve, reject) => {
     stream.on('finish', () => {
-      resolve(filepath);
+      resolve(`/uploads/invoices/${filename}`);
     });
     stream.on('error', reject);
   });
@@ -225,7 +225,7 @@ const downloadInvoice = asyncHandler(async (req, res) => {
   const sale = await Sale.findById(req.params.id);
   
   if (sale && sale.invoicePdf) {
-    const filePath = sale.invoicePdf;
+    const filePath = path.join(__dirname, '..', sale.invoicePdf);
     
     if (fs.existsSync(filePath)) {
       res.download(filePath);

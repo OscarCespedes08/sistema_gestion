@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const facturaUrl = await uploadInvoiceToCloudinary('/ruta/a/la/factura.png');
-// guarda `facturaUrl` en la base de datos, o úsala como necesites
-
 const { 
   getSales, 
   getSaleById, 
