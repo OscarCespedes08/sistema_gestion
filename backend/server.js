@@ -31,10 +31,18 @@ app.use('/api/clients', require('./routes/clientRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/sales', require('./routes/saleRoutes'));
 
-// Ruta de prueba
-app.get('/', (req, res) => {
-  res.send('API está funcionando');
-});
+// Servir archivos estáticos en producción
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  
+  app.get('*', (req, res) => 
+    res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API está funcionando');
+  });
+}
 
 // Middleware de errores
 app.use(notFound);
