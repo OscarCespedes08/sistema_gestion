@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Row, Col, Alert, Image } from 'react-bootstrap';
 import { getProducts, deleteProduct } from '../../services/api';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Obtener la URL base del backend
+  const API_URL = axios.defaults.baseURL || 'http://localhost:5000';
 
   const fetchProducts = async () => {
     try {
@@ -58,7 +62,7 @@ const ProductList = () => {
         <thead>
           <tr>
             <th>Imagen</th>
-            <th>ID Producto</th>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Cantidad</th>
@@ -75,12 +79,14 @@ const ProductList = () => {
             products.map((product) => (
               <tr key={product._id}>
                 <td>
-                  <Image 
-                    src={`http://localhost:5000${product.image}`} 
-                    alt={product.name} 
-                    thumbnail 
-                    style={{ width: '50px', height: '50px' }}
-                  />
+                  {product.image && (
+                    <Image 
+                      src={product.image.startsWith('http') ? product.image : `${window.location.origin}${product.image}`} 
+                      alt={product.name} 
+                      thumbnail 
+                      style={{ width: '50px', height: '50px' }}
+                    />
+                  )}
                 </td>
                 <td>{product.productId}</td>
                 <td>{product.name}</td>

@@ -226,7 +226,7 @@ const SaleForm = () => {
             Volver
           </Button>
           <a 
-            href={`http://localhost:5000/api/sales/${sale._id}/invoice`} 
+            href={`${window.location.origin}/api/sales/${sale._id}/invoice`} 
             target="_blank" 
             rel="noopener noreferrer"
           >

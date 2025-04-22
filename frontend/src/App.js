@@ -42,3 +42,16 @@ function App() {
 }
 
 export default App;
+
+<Routes>
+  <Route path="/" element={<HomeScreen />} />
+  <Route path="/clients" element={<ClientList />} />
+  <Route path="/clients/new" element={<ClientForm />} />
+  <Route path="/clients/edit/:id" element={<ClientForm />} />
+  <Route path="/products" element={<ProductList />} />
+  <Route path="/products/new" element={<ProductForm />} />
+  <Route path="/products/edit/:id" element={<ProductForm />} />
+  <Route path="/sales" element={<SaleList />} />
+  <Route path="/sales/new" element={<SaleForm />} />
+  <Route path="/sales/:id" element={<SaleForm />} />
+</Routes>

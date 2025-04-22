@@ -33,7 +33,7 @@ const ProductForm = () => {
             quantity: response.data.quantity,
             unitPrice: response.data.unitPrice
           });
-          setPreviewImage(`http://localhost:5000${response.data.image}`);
+          setPreviewImage(response.data.image);
         } catch (err) {
           setError('Error al cargar los datos del producto: ' + err.message);
         } finally {
@@ -169,7 +169,7 @@ const ProductForm = () => {
               {previewImage && (
                 <div className="mt-2">
                   <Image 
-                    src={previewImage} 
+                    src={previewImage.startsWith('http') ? previewImage : `${window.location.origin}${previewImage}`} 
                     alt="Vista previa" 
                     thumbnail 
                     style={{ width: '100px', height: '100px' }}
