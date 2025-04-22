@@ -3,6 +3,7 @@ const Sale = require('../models/saleModel');
 const Product = require('../models/productModel');
 const Client = require('../models/clientModel');
 const PDFDocument = require('pdfkit');
+const cloudinary = require('../config/cloudinary');
 const fs = require('fs');
 const path = require('path');
 

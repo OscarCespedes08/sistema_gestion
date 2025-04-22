@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
+const uploadRoutes = require('./routes/uploadRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 // Cargar variables de entorno
@@ -30,6 +31,8 @@ if (!fs.existsSync('./uploads')) {
 app.use('/api/clients', require('./routes/clientRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/sales', require('./routes/saleRoutes'));
+app.use('/api/upload', uploadRoutes);
+
 
 // Verificar si estamos en Render (Render establece esta variable automáticamente)
 const isRender = process.env.RENDER === 'true';
